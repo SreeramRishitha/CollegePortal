@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: college-portal-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: college-portal
+    restart: unless-stopped
+
+  # Optional: ChromaDB service
+  # Uncomment if you want to use ChromaDB
+  # chromadb:
+  #   image: chromadb/chroma:latest
+  #   container_name: college-portal-chromadb
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - chromadb_data:/chroma/chroma
+  #   restart: unless-stopped
+
+volumes:
+  mongodb_data:
+  # chromadb_data:
+
