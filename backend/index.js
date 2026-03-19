@@ -82,12 +82,14 @@ if (!MONGODB_URI) {
 const isAtlas = MONGODB_URI.includes('mongodb+srv://') || MONGODB_URI.includes('mongodb.net')
 console.log("MONGO URI:", process.env.MONGODB_URI);
 
-mongoose
-  .connect(MONGODB_URI, {
-    serverSelectionTimeoutMS: isAtlas ? 10000 : 5000, // Longer timeout for Atlas
-    socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
-    connectTimeoutMS: isAtlas ? 10000 : 5000,
-  })
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 20000,
+  socketTimeoutMS: 45000,
+  connectTimeoutMS: 20000,
+  tls: true, // 🔥 IMPORTANT for Atlas SSL
+})
   .then(() => {
     console.log('✅ Connected to MongoDB')
     console.log(`   Database: ${mongoose.connection.name}`)
