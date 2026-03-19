@@ -12,6 +12,7 @@ interface Document {
   filename: string
   originalName: string
   uploadedAt: string
+  createdAt: string
   size: number
 }
 

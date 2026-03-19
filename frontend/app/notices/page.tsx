@@ -7,7 +7,7 @@ import Layout from '@/components/Layout'
 import { noticeAPI, deadlineAPI } from '@/lib/api'
 import { format } from 'date-fns'
 import Link from 'next/link'
-import { FiFileText, FiCalendar, FiTag, FiDownload, FiQrCode } from 'react-icons/fi'
+import { FiFileText, FiCalendar, FiTag, FiDownload } from 'react-icons/fi'
 import toast from 'react-hot-toast'
 
 export default function NoticesPage() {

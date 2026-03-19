@@ -6,7 +6,7 @@ import { getUser } from '@/lib/auth'
 import Layout from '@/components/Layout'
 import { noticeAPI } from '@/lib/api'
 import { format } from 'date-fns'
-import { FiFileText, FiUpload, FiCheck, FiX, FiEdit, FiTrash2, FiQrCode } from 'react-icons/fi'
+import { FiFileText, FiUpload, FiCheck, FiX, FiEdit, FiTrash2 } from 'react-icons/fi'
 import toast from 'react-hot-toast'
 
 export default function AdminNoticesPage() {
@@ -51,7 +51,8 @@ export default function AdminNoticesPage() {
     e.preventDefault()
     
     if (uploadType === 'pdf') {
-      if (!formData.file) {
+      const file = formData.file
+      if (!file) {
         toast.error('Please select a PDF file')
         return
       }
@@ -64,10 +65,11 @@ export default function AdminNoticesPage() {
 
     try {
       setUploading(true)
-      
+
       if (uploadType === 'pdf') {
-        await noticeAPI.upload(formData.file, {
-          title: formData.title || formData.file.name,
+        const file = formData.file as File
+        await noticeAPI.upload(file, {
+          title: formData.title || file.name,
           department: formData.department,
           targetAudience: formData.targetAudience,
         })
@@ -352,7 +354,9 @@ export default function AdminNoticesPage() {
                         rel="noopener noreferrer"
                         className="flex items-center text-blue-600 hover:text-blue-800"
                       >
-                        <FiQrCode className="mr-1 h-4 w-4" />
+                        <span className="mr-1 h-4 w-4 inline-block border border-current rounded-sm flex items-center justify-center text-[0.6rem]">
+                          QR
+                        </span>
                         View QR Code
                       </a>
                     )}
